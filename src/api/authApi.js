@@ -5,9 +5,7 @@ export const loginUser = async (
 ) => {
 
   const response =
-    await axiosInstance.post(
-      "/auth/login",
-      data
+    await axiosInstance.post("/auth/login", data
     );
 
   return response.data;
