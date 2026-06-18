@@ -51,7 +51,7 @@ const RegisterForm = () => {
 
 
   return (
-    <form onSubmit={handleChange}>
+    <form onSubmit={handleSubmit}>
         <Input
          label="Full Name"
         type="text"
