@@ -44,7 +44,7 @@ https://github.com/Praveen2493/server.git
 * Mongoose
 * JWT Authentication
 * Multer
-* Nodemailer
+
 
 ---
 
@@ -68,7 +68,7 @@ https://github.com/Praveen2493/server.git
 ## 👤 Demo Credentials
 
 Email:
-test@gmail.com
+demo@gmail.com
 
 Password:
 123456
@@ -98,17 +98,15 @@ npm start
 Backend (.env)
 
 ```
-MONGO_URI=your_mongodb_connection
-JWT_SECRET=your_secret_key
-EMAIL_USER=your_email
-EMAIL_PASS=your_app_password
-CLIENT_URL=http://localhost:5173
+MONGO_URI=mongodb+srv://rajpraveen2412_db_user:zt6RTaG98m0AcihX@cluster0.lguo5if.mongodb.net/taskmanager?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET=MyTaskManagementSecret2026
+CLIENT_URL=https://guvi-task-managment-frontend.netlify.app
 ```
 
 Frontend (.env)
 
 ```
-VITE_API_URL=http://localhost:5000/api
+VITE_API_URL=https://server-i6ms.onrender.com/api
 ```
 
 ---
