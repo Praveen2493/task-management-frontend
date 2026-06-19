@@ -111,11 +111,15 @@ const handleImageUpload = async (file) => {
           <img
             src={
               user.profileImage
-                ? `http://localhost:5000${user.profileImage}`
-                : "https://via.placeholder.com/120"
+                ? `${import.meta.env.VITE_API_URL}${user.profileImage}`
+                : "https://ui-avatars.com/api/?name=User&background=random"
             }
             alt="Profile"
             className="w-32 h-32 rounded-full object-cover border"
+            onError={(e) => {
+              e.target.src =
+                "https://ui-avatars.com/api/?name=User&background=random";
+            }}
           />
 
         </div>
