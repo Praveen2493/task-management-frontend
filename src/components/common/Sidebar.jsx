@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { getProfile } from '../../api/userApi';
 
 const Sidebar = () => {
 
-
+     const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
 useEffect(() => {
@@ -20,6 +20,19 @@ const fetchProfile = async () => {
   }
 };
 
+const handleLogout = () => {
+
+  // Remove JWT Token
+  localStorage.removeItem("token");
+
+  // Remove user data if stored
+  localStorage.removeItem("user");
+
+  // Go to login page
+  navigate("/login");
+
+};
+
   return (
     <div className='w-64 hidden md:block bg-slate-600 text-white h-screen p-6 '>
         <h2 className="text-2xl font-bold mb-8">Menu</h2>
@@ -29,10 +42,10 @@ const fetchProfile = async () => {
 
               <img
                 src={
-                  user.profileImage
-                    ? `http://localhost:5000${user.profileImage}`
-                    : "https://www.magnific.com/free-vector/user-circles-set_145856997.htm#fromView=keyword&page=1&position=0&uuid=05704697-a6ff-455f-b0b0-04663fa54615&query=Profile+link"
-                }
+                      user.profileImage
+                        ? `${import.meta.env.VITE_API_URL}${user.profileImage}`
+                        : "https://ui-avatars.com/api/?name=User&background=random"
+                    }
                 alt="Profile"
                 className="w-20 h-20 rounded-full object-cover border-2 border-white"
               />
@@ -59,7 +72,8 @@ const fetchProfile = async () => {
             </li>
         </ul>
 
-        <button
+        <button 
+        onClick={handleLogout}
           className="
             mt-8
             bg-red-600
