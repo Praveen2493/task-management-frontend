@@ -23,8 +23,15 @@ const AppRoutes = () => {
     <Route path='/dashboard' element={<ProtectedRoute> <Dashboard/> </ProtectedRoute>}/>
     <Route path='/tasks' element={<ProtectedRoute> <Tasks/> </ProtectedRoute>}/>
     <Route path='/tasks/create' element={<ProtectedRoute> <CreateTask/>  </ProtectedRoute>}/>
-    <Route path='task/:id' element={ <ProtectedRoute> <TaskDetails/> </ProtectedRoute>}/>
-    <Route path='/notificaions' element={<ProtectedRoute><Notifications/></ProtectedRoute>}/>
+    <Route
+  path="/task/:id"
+  element={
+    <ProtectedRoute>
+      <TaskDetails />
+    </ProtectedRoute>
+  }
+/>
+    {/* <Route path='/notificaions' element={<ProtectedRoute><Notifications/></ProtectedRoute>}/> */}
     <Route path="/profile"element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
     <Route path="/settings" element={ <ProtectedRoute><Settings /></ProtectedRoute>}/>
     <Route path='/tasks/edit/:id' element={<ProtectedRoute> <EditTask/> </ProtectedRoute> }/>
