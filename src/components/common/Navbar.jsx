@@ -26,10 +26,10 @@ const Navbar = () => {
 
           <img
             src={
-              user.profileImage
-                ? `http://localhost:5000${user.profileImage}`
-                : "https://via.placeholder.com/40"
-            }
+                  user.profileImage
+                    ? `${import.meta.env.VITE_API_URL}${user.profileImage}`
+                    : "https://ui-avatars.com/api/?name=User&background=random"
+                }
             alt="Profile"
             className="w-10 h-10 rounded-full object-cover"
           />

@@ -22,60 +22,59 @@ const CommentSection = ({
     setComments] =
     useState([]);
 
-  useEffect(() => {
+ useEffect(() => {
+
+  if (taskId) {
+    fetchComments();
+  }
+
+}, [taskId]);
+
+  const fetchComments = async () => {
+
+  if (!taskId) return;
+
+  try {
+
+    const response = await getComments(taskId);
+
+    setComments(response.comments);
+
+  } catch (error) {
+
+    console.log(error);
+
+  }
+
+};
+
+  const handleSubmit = async (e) => {
+
+  e.preventDefault();
+
+  if (!taskId) {
+    return;
+  }
+
+  if (!comment.trim()) {
+    return;
+  }
+
+  try {
+
+    await addComment(taskId, comment);
+
+    setComment("");
 
     fetchComments();
 
-  }, []);
+  } catch (error) {
 
-  const fetchComments =
-    async () => {
+    console.log(error);
 
-      try {
+  }
 
-        const response =
-          await getComments(
-            taskId
-          );
-
-        setComments(
-          response.comments
-        );
-
-      } catch (error) {
-
-        console.log(error);
-
-      }
-
-    };
-
-  const handleSubmit =
-    async (e) => {
-
-      e.preventDefault();
-
-      if (!comment.trim())
-        return;
-
-      try {
-
-        await addComment(
-          taskId,
-          comment
-        );
-
-        setComment("");
-
-        fetchComments();
-
-      } catch (error) {
-
-        console.log(error);
-
-      }
-
-    };
+};
 
   return (
 
@@ -102,6 +101,13 @@ const CommentSection = ({
           placeholder="Add Comment"
           className="border p-2 rounded w-full"
         />
+
+        <button
+        type="submit"
+        className="mt-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+      >
+        Add Comment
+      </button>
 
       </form>
 

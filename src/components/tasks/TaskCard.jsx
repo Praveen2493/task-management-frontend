@@ -1,7 +1,6 @@
 import React from 'react'
 import PriorityBadge from './PriorityBadge'
 import StatusBadge from './StatusBadge';
-import CommentSection from '../comments/CommentSection';
 import { Link } from 'react-router-dom';
 
 const TaskCard = ({
@@ -36,11 +35,16 @@ const TaskCard = ({
           </span>
 
 
-          <CommentSection taskId={task.id}/>
-
         </div>
 
         <div className="mt-4 flex gap-2">
+
+            <Link
+              to={`/task/${task._id}`}
+              className="bg-green-600 text-white px-3 py-2 rounded-lg"
+          >
+              View Details
+          </Link>
 
         <Link
           to={`/tasks/edit/${task._id}`}
