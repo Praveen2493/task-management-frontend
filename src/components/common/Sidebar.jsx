@@ -21,17 +21,11 @@ const fetchProfile = async () => {
 };
 
 const handleLogout = () => {
-
-  // Remove JWT Token
-  localStorage.removeItem("token");
-
-  // Remove user data if stored
-  localStorage.removeItem("user");
-
-  // Go to login page
-  navigate("/login");
-
-};
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    if (setUser) setUser(null);
+    navigate('/login');
+  };;
 
   return (
     <div className='w-64 hidden md:block bg-slate-600 text-white h-screen p-6 '>
