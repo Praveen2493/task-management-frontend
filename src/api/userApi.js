@@ -28,14 +28,9 @@ export const uploadProfileImage = async (file) => {
 
   formData.append("profileImage", file);
 
-  const response = await axiosInstance.put(
+  const response = await axiosInstance.post(
     "/users/profile-image",
-    formData,
-    {
-      headers: {
-        "Content-Type": "multipart/form-data",
-      },
-    }
+    formData
   );
 
   return response.data;
