@@ -1,7 +1,7 @@
 import { useState } from "react";
-import axios from "axios";
+import { uploadProfileImage } from "../../api/userApi";
 
-const ProfileImageUpload = ({ onUpload  }) => {
+const ProfileImageUpload = ({ onUpload }) => {
   const [file, setFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
@@ -10,32 +10,19 @@ const ProfileImageUpload = ({ onUpload  }) => {
     e.preventDefault();
     if (!file) return;
 
-    // Build multi-part form data
-    const formData = new FormData();
-    formData.append("image", file); // Must match your backend upload middleware key
-
     try {
       setLoading(true);
       setErrorMsg("");
 
-      const token = localStorage.getItem("token");
-
-      const res = await axios.post("/api/users/profile-image", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const response = await uploadProfileImage(file);
 
       // Pass uploaded image URL back to parent state if needed
-      if (onUpload ) {
-        onUpload (res.data.imageUrl || res.data.user?.profileImage);
+      if (onUpload) {
+        onUpload(response.imageUrl || response.user?.profileImage);
       }
 
-      alert("Image uploaded successfully!");
-    } catch (err) {
-      console.error("Upload error:", err.response?.data || err.message);
-      setErrorMsg(err.response?.data?.message || "Image upload failed");
+    } catch (error) {
+      setErrorMsg(error.response?.data?.message || "Image upload failed");
     } finally {
       setLoading(false);
     }
