@@ -66,26 +66,9 @@ const Profile = () => {
 };
 
 
-const handleImageUpload = async (file) => {
-
-  try {
-
-    const response =
-      await uploadProfileImage(file);
-
-    toast.success(response.message);
-
-    fetchProfile();
-
-  } catch (error) {
-
-    toast.error(
-      error.response?.data?.message ||
-      "Image upload failed"
-    );
-
-  }
-
+const handleImageUpload = () => {
+  toast.success("Profile image uploaded");
+  fetchProfile();
 };
 
 
