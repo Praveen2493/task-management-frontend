@@ -6,9 +6,13 @@ const AttachmentSection = () => {
         Attachments
       </h2>
 
+      <label htmlFor="task-attachment" className="mb-1.5 block text-sm font-semibold text-slate-700">
+        Choose a file
+      </label>
       <input
+        id="task-attachment"
         type="file"
-        className="border p-2 rounded-lg w-full"
+        className="w-full rounded-md border border-slate-300 bg-white p-2.5 text-sm"
       />
 
       <div className="mt-4">

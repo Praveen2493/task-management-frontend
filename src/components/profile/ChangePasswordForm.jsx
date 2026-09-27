@@ -51,32 +51,44 @@ const ChangePasswordForm = ({ onChangePassword }) => {
         Change Password
       </h2>
 
-      <input
-        type="password"
-        name="currentPassword"
-        placeholder="Current Password"
-        value={formData.currentPassword}
-        onChange={handleChange}
-        className="border rounded w-full p-2"
-      />
+      <div>
+        <label htmlFor="current-password" className="mb-1.5 block text-sm font-semibold text-slate-700">Current password</label>
+        <input
+          id="current-password"
+          type="password"
+          name="currentPassword"
+          placeholder="Enter current password"
+          value={formData.currentPassword}
+          onChange={handleChange}
+          className="w-full rounded-md border border-slate-300 bg-white p-2.5 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
 
-      <input
-        type="password"
-        name="newPassword"
-        placeholder="New Password"
-        value={formData.newPassword}
-        onChange={handleChange}
-        className="border rounded w-full p-2"
-      />
+      <div>
+        <label htmlFor="new-password" className="mb-1.5 block text-sm font-semibold text-slate-700">New password</label>
+        <input
+          id="new-password"
+          type="password"
+          name="newPassword"
+          placeholder="Enter new password"
+          value={formData.newPassword}
+          onChange={handleChange}
+          className="w-full rounded-md border border-slate-300 bg-white p-2.5 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
 
-      <input
-        type="password"
-        name="confirmPassword"
-        placeholder="Confirm New Password"
-        value={formData.confirmPassword}
-        onChange={handleChange}
-        className="border rounded w-full p-2"
-      />
+      <div>
+        <label htmlFor="confirm-password" className="mb-1.5 block text-sm font-semibold text-slate-700">Confirm new password</label>
+        <input
+          id="confirm-password"
+          type="password"
+          name="confirmPassword"
+          placeholder="Re-enter new password"
+          value={formData.confirmPassword}
+          onChange={handleChange}
+          className="w-full rounded-md border border-slate-300 bg-white p-2.5 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
+        />
+      </div>
 
       <button
         type="submit"

@@ -44,14 +44,18 @@ const CommentsSection = () => {
 
       </div>
 
+      <label htmlFor="new-comment" className="mb-1.5 block text-sm font-semibold text-slate-700">
+        Add a comment
+      </label>
       <textarea
+        id="new-comment"
         value={comment}
         onChange={(e) =>
           setComment(e.target.value)
         }
         rows="3"
-        placeholder="Add a comment..."
-        className="w-full border rounded-lg p-3"
+        placeholder="Write a comment"
+        className="w-full rounded-md border border-slate-300 bg-white p-3 outline-none focus:border-blue-600 focus:ring-2 focus:ring-blue-100"
       />
 
       <button

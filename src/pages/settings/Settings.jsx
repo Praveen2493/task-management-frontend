@@ -14,13 +14,13 @@ const Settings = () => {
 
           <div>
 
-            <label className="font-semibold">
+            <label htmlFor="email-notifications" className="font-semibold">
               Email Notifications
             </label>
 
             <div className="mt-2">
 
-              <input type="checkbox" />
+              <input id="email-notifications" type="checkbox" />
 
             </div>
 
@@ -28,13 +28,13 @@ const Settings = () => {
 
           <div>
 
-            <label className="font-semibold">
+            <label htmlFor="dark-mode" className="font-semibold">
               Dark Mode
             </label>
 
             <div className="mt-2">
 
-              <input type="checkbox" />
+              <input id="dark-mode" type="checkbox" />
 
             </div>
 

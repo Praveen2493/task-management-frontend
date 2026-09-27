@@ -33,7 +33,11 @@ const ProfileImageUpload = ({ onUpload }) => {
       {errorMsg && <p className="text-red-500 text-xs font-semibold">{errorMsg}</p>}
 
       <div className="flex items-center gap-2">
+        <label htmlFor="profile-image" className="text-sm font-semibold text-slate-700">
+          Profile image
+        </label>
         <input
+          id="profile-image"
           type="file"
           accept="image/*"
           className="px-2 py-1 border rounded text-sm"

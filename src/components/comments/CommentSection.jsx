@@ -90,7 +90,11 @@ const CommentSection = ({
         }
       >
 
+        <label htmlFor="task-comment" className="mb-1.5 block text-sm font-semibold text-slate-700">
+          Add a comment
+        </label>
         <input
+          id="task-comment"
           type="text"
           value={comment}
           onChange={(e)=>

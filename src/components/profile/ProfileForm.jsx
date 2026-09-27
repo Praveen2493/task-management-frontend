@@ -25,11 +25,12 @@ const ProfileForm = ({ user, onSave }) => {
       className="space-y-4"
     >
       <div>
-        <label className="block mb-1 font-semibold">
+        <label htmlFor="profile-name" className="mb-1.5 block text-sm font-semibold text-slate-700">
           Name
         </label>
 
         <input
+          id="profile-name"
           type="text"
           name="name"
           value={formData.name}
@@ -39,11 +40,12 @@ const ProfileForm = ({ user, onSave }) => {
       </div>
 
       <div>
-        <label className="block mb-1 font-semibold">
+        <label htmlFor="profile-email" className="mb-1.5 block text-sm font-semibold text-slate-700">
           Email
         </label>
 
         <input
+          id="profile-email"
           type="email"
           name="email"
           value={formData.email}
