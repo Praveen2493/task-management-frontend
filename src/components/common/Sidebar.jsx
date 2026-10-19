@@ -50,7 +50,7 @@ const Sidebar = ({ collapsed, onToggle, mobileOpen, onClose }) => {
         <div className="flex h-16 items-center justify-between border-b border-white/10 px-5">
           <div className={`flex items-center gap-3 ${collapsed ? "xl:justify-center" : ""}`}>
             <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-500 text-lg font-bold text-white">T</span>
-            <span className={`${collapsed ? "xl:hidden" : ""} text-lg font-bold tracking-tight`}>TaskFlow</span>
+            <span className={`${collapsed ? "xl:hidden" : ""} text-lg font-bold tracking-tight`}>Task Management</span>
           </div>
           <button
             type="button"
