@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import MainLayout from "../../layouts/MainLayout";
@@ -25,39 +25,35 @@ const [page, setPage] = useState(1);
 const [totalPages, setTotalPages] = useState(1);
 
 const [sort, setSort] = useState("newest");
+const [refresh, setRefresh] = useState(0);
 
   useEffect(() => {
-    fetchTasks();
-  }, [searchTerm,
-  category,
-  status,
-  priority,
-  sort,
-  page,
-]);
+    let active = true;
+    const loadTasks = async () => {
+      try {
+        const response = await getTasks({
+          search: searchTerm,
+          category,
+          status,
+          priority,
+          sort,
+          page,
+          limit: 10,
+        });
+        if (active) {
+          setTasks(response.tasks);
+          setTotalPages(response.totalPages);
+        }
+      } catch (error) {
+        if (active) console.error(error);
+      }
+    };
 
-  const fetchTasks = async () => {
-    try {
-      const response = await getTasks({
-        search: searchTerm,
-        category,
-        status,
-        priority,
-        sort,
-        page,
-        limit: 10,
-      });
-
-     // console.log("Tasks:", response);
-
-      setTasks(response.tasks);
-      setTotalPages(response.totalPages);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-
+    loadTasks();
+    return () => {
+      active = false;
+    };
+  }, [searchTerm, category, status, priority, sort, page, refresh]);
 
   const handleDelete = async (id) => {
   const confirmDelete = window.confirm(
@@ -70,7 +66,7 @@ const [sort, setSort] = useState("newest");
 
     await deleteTask(id);
 
-    fetchTasks();
+    setRefresh((current) => current + 1);
 
   } catch (error) {
 
@@ -94,16 +90,17 @@ const [sort, setSort] = useState("newest");
   return (
     <MainLayout>
       {/* Header */}
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold">
-          Tasks
-        </h1>
-
+      <div className="mb-6 flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+        <div>
+          <p className="mb-1 text-sm font-semibold uppercase tracking-[0.16em] text-violet-600">Task workspace</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Tasks</h1>
+          <p className="mt-1 text-sm text-slate-500">Plan, prioritize, and track your work.</p>
+        </div>
         <Link
           to="/tasks/create"
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg"
+          className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm shadow-violet-200 transition hover:bg-violet-700"
         >
-          + Create Task
+          + Create task
         </Link>
       </div>
 
@@ -126,7 +123,7 @@ const [sort, setSort] = useState("newest");
       />
 
       {/* Task List */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
 
         {filteredTasks.length === 0 ? (
           <EmptyState title="No Tasks Found" />

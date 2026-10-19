@@ -1,5 +1,3 @@
-import React from 'react'
-
 const Button = ({
     text,
     type="button",
@@ -9,7 +7,7 @@ const Button = ({
     <button 
     type={type}
     onClick={onClick}
-    className='w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition'>
+    className='w-full rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-600'>
         {text}
     </button>
   );

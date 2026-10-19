@@ -21,7 +21,7 @@ const CreateTask = () => {
   } catch (error) {
     console.error(error);
 
-    toast.success(
+    toast.error(
       error?.response?.data?.message ||
       "Failed to create task"
     );
@@ -30,17 +30,15 @@ const CreateTask = () => {
 
   return (
     <MainLayout>
-      <div className="text-center items-center mb-6">
-      <h1 className="text-3xl font-bold mb-6">
-        Create Task
-      </h1>
-
-    <div className="w-100 mx-auto">
-      <TaskForm
-        onSubmit={handleCreateTask}
-      />
-    </div>
-      
+      <div className="mx-auto max-w-3xl">
+        <div className="mb-6">
+          <p className="mb-1 text-sm font-semibold uppercase tracking-[0.16em] text-violet-600">Task workspace</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Create a task</h1>
+          <p className="mt-1 text-sm text-slate-500">Add a new task and keep the next steps clear.</p>
+        </div>
+        <section className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+          <TaskForm onSubmit={handleCreateTask} />
+        </section>
       </div>
     </MainLayout>
   );
