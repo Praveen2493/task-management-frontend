@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiImage, FiUploadCloud } from "react-icons/fi";
 import { uploadProfileImage } from "../../api/userApi";
 
 const ProfileImageUpload = ({ onUpload }) => {
@@ -6,21 +7,21 @@ const ProfileImageUpload = ({ onUpload }) => {
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState("");
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (!file) return;
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const formElement = event.currentTarget;
+    if (!file) {
+      setErrorMsg("Choose an image before uploading.");
+      return;
+    }
 
     try {
       setLoading(true);
       setErrorMsg("");
-
       const response = await uploadProfileImage(file);
-
-      // Pass uploaded image URL back to parent state if needed
-      if (onUpload) {
-        onUpload(response.imageUrl || response.user?.profileImage);
-      }
-
+      onUpload?.(response.imageUrl || response.user?.profileImage);
+      setFile(null);
+      formElement.reset();
     } catch (error) {
       setErrorMsg(error.response?.data?.message || "Image upload failed");
     } finally {
@@ -29,29 +30,42 @@ const ProfileImageUpload = ({ onUpload }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mb-6 flex flex-col items-start gap-2">
-      {errorMsg && <p className="text-red-500 text-xs font-semibold">{errorMsg}</p>}
-
-      <div className="flex items-center gap-2">
-        <label htmlFor="profile-image" className="text-sm font-semibold text-slate-700">
-          Profile image
-        </label>
+    <form onSubmit={handleSubmit} className="space-y-3">
+      <div>
+        <p className="text-sm font-semibold text-slate-800">Profile photo</p>
+        <p className="mt-1 text-xs leading-5 text-slate-500">Use a clear photo so your teammates can recognize you.</p>
+      </div>
+      <label
+        htmlFor="profile-image"
+        className="flex cursor-pointer items-center gap-3 rounded-xl border border-dashed border-slate-300 bg-slate-50 p-3 transition hover:border-violet-300 hover:bg-violet-50/50"
+      >
+        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-white text-violet-600 shadow-sm">
+          <FiImage size={17} />
+        </span>
+        <span className="min-w-0 flex-1">
+          <span className="block truncate text-xs font-semibold text-slate-700">{file?.name || "Choose an image"}</span>
+          <span className="mt-0.5 block text-[11px] text-slate-400">JPG, PNG or GIF</span>
+        </span>
         <input
           id="profile-image"
           type="file"
           accept="image/*"
-          className="px-2 py-1 border rounded text-sm"
-          onChange={(e) => setFile(e.target.files[0])}
+          className="sr-only"
+          onChange={(event) => {
+            setFile(event.target.files?.[0] || null);
+            setErrorMsg("");
+          }}
         />
-
-        <button
-          type="submit"
-          disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white px-4 py-2 rounded text-sm transition-colors"
-        >
-          {loading ? "Uploading..." : "Upload Image"}
-        </button>
-      </div>
+      </label>
+      {errorMsg && <p role="alert" className="text-xs font-medium text-rose-600">{errorMsg}</p>}
+      <button
+        type="submit"
+        disabled={loading}
+        className="inline-flex w-full items-center justify-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-violet-200 hover:bg-violet-50 hover:text-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
+      >
+        <FiUploadCloud size={16} />
+        {loading ? "Uploading…" : "Upload photo"}
+      </button>
     </form>
   );
 };
