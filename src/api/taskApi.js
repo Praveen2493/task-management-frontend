@@ -34,6 +34,21 @@ export const getTaskById = async (id) => {
   return response.data;
 };
 
+export const assignTask = async (id, userId) => {
+  const response = await axiosInstance.put(`/tasks/assign/${id}`, { userId });
+  return response.data;
+};
+
+export const shareTask = async (id, userId, permission) => {
+  const response = await axiosInstance.put(`/tasks/${id}/shares`, { userId, permission });
+  return response.data;
+};
+
+export const removeTaskShare = async (id, userId) => {
+  const response = await axiosInstance.delete(`/tasks/${id}/shares/${userId}`);
+  return response.data;
+};
+
 
 export const uploadFile = async(file) => {
 

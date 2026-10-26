@@ -7,9 +7,14 @@ async()=>{
 
  const response=
  await axiosInstance.get(
-  "/notifications"
+  "/tasks/notifications"
  );
 
  return response.data;
 
+};
+
+export const markNotificationsRead = async () => {
+  const response = await axiosInstance.patch("/tasks/notifications/read");
+  return response.data;
 };

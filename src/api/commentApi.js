@@ -2,13 +2,14 @@ import axiosInstance from "./axiosInstance";
 
 export const addComment = async (
   taskId,
-  comment
+  comment,
+  parentComment = null
 ) => {
 
   const response =
     await axiosInstance.post(
       `/comments/${taskId}`,
-      { comment }
+      { comment, parentComment }
     );
 
   return response.data;

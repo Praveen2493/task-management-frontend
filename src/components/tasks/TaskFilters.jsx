@@ -1,9 +1,5 @@
-import React from 'react'
-
-const TaskFilters = ({searchTerm, 
+const TaskFilters = ({searchTerm,
   setSearchTerm,
-  filter,
-  setFilter,
   category,
   setCategory,
   status,
@@ -82,6 +78,7 @@ const TaskFilters = ({searchTerm,
           <option value="newest">Newest</option>
           <option value="oldest">Oldest</option>
           <option value="deadline">Deadline</option>
+          <option value="priority">Priority (high to low)</option>
         </select>
       </div>
     </div>

@@ -21,7 +21,11 @@ const TaskForm = ({ onSubmit, initialData }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSubmit(formData);
+    const taskData = { ...formData };
+    if (taskData.deadline) {
+      taskData.deadline = new Date(`${taskData.deadline}T23:59:59`).toISOString();
+    }
+    onSubmit(taskData);
   };
 
   const inputClassName = "w-full rounded-xl border border-slate-200 bg-slate-50 px-3.5 py-3 text-sm text-slate-800 outline-none transition placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-100";

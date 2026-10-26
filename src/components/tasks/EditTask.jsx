@@ -24,6 +24,11 @@ const EditTask = () => {
     const loadTask = async () => {
       try {
         const response = await getTaskById(id);
+        if (active && response.permission !== "edit") {
+          toast.error("You only have view access to this task");
+          navigate(`/task/${id}`);
+          return;
+        }
         if (active) setTask(response.task);
       } catch (error) {
         console.error(error);
@@ -35,7 +40,7 @@ const EditTask = () => {
     return () => {
       active = false;
     };
-  }, [id]);
+  }, [id, navigate]);
 
   const handleUpdate = async (formData) => {
 

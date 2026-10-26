@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import Input from '../common/Input';
 import Button from '../common/Button';
 import toast from 'react-hot-toast';
 import validateEmail from '../../utils/validateEmail';
 
-const RegisterForm = () => {
+const RegisterForm = ({ onSubmit }) => {
 
     const [formData, setFormData] = useState({
         name:"",
@@ -45,7 +45,11 @@ const RegisterForm = () => {
           return toast.error("Password do not match");
         }
 
-        console.log(formData);
+        onSubmit({
+          name: formData.name.trim(),
+          email: formData.email.trim(),
+          password: formData.password,
+        });
     };
 
 

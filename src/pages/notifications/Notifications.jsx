@@ -1,45 +1,33 @@
 import MainLayout from "../../layouts/MainLayout";
+import useNotifications from "../../hooks/useNotifications";
 
 const Notifications = () => {
-  const notifications = [
-    {
-      id: 1,
-      message: "Task deadline approaching",
-      time: "10 mins ago",
-    },
-    {
-      id: 2,
-      message: "Task assigned to you",
-      time: "1 hour ago",
-    },
-    {
-      id: 3,
-      message: "Task status updated",
-      time: "2 hours ago",
-    },
-  ];
+  const { notifications } = useNotifications();
 
   return (
     <MainLayout>
-      <h1 className="text-3xl font-bold mb-6">
-        Notifications
-      </h1>
-
-      <div className="space-y-4">
-        {notifications.map((item) => (
-          <div
-            key={item.id}
-            className="bg-white p-4 rounded-xl shadow"
-          >
-            <h3 className="font-medium">
-              {item.message}
-            </h3>
-
-            <p className="text-gray-500 text-sm">
-              {item.time}
+      <div className="mx-auto max-w-4xl">
+        <div className="mb-6">
+          <p className="mb-1 text-sm font-semibold uppercase tracking-[0.16em] text-violet-600">Workspace updates</p>
+          <h1 className="text-3xl font-bold tracking-tight text-slate-900">Notifications</h1>
+          <p className="mt-1 text-sm text-slate-500">Assignments, task changes, and deadline reminders.</p>
+        </div>
+        <div className="space-y-3">
+          {notifications.length ? notifications.map((item) => (
+            <article key={item._id} className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+              <p className="text-sm font-medium text-slate-800">{item.message}</p>
+              {item.createdAt && (
+                <time className="mt-2 block text-xs text-slate-400" dateTime={item.createdAt}>
+                  {new Date(item.createdAt).toLocaleString()}
+                </time>
+              )}
+            </article>
+          )) : (
+            <p className="rounded-2xl border border-slate-200 bg-white p-6 text-sm text-slate-500 shadow-sm">
+              You have no notifications yet.
             </p>
-          </div>
-        ))}
+          )}
+        </div>
       </div>
     </MainLayout>
   );

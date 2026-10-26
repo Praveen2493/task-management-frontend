@@ -1,149 +1,64 @@
 # Task Management System
 
-## 📌 Project Overview
+A full-stack task management application built with React, Express, and MongoDB.
 
-The Task Management System is a full-stack MERN application that helps users manage their daily tasks efficiently. Users can register, log in securely, create tasks, update them, delete them, and track task progress.
+## Features
 
----
+- JWT-based registration, login, and protected pages
+- Task creation, assignment, status and priority tracking
+- Shared tasks with view or edit permissions
+- Threaded comments with task-level authorization
+- Email and in-app notifications for assignments, updates, status changes, and approaching deadlines
+- Priority sorting and overdue task highlighting
+- User profile management and responsive dashboard
 
-## 🚀 Live Demo
+## Run locally
 
-Frontend:
-https://guvi-task-managment-frontend.netlify.app/
-
-Backend:
-https://backend-task-server.netlify.app/
-
----
-
-## 📂 GitHub Repository
-
-Frontend:
-https://github.com/Praveen2493/task-management-frontend.git
-
-Backend:
-https://github.com/Praveen2493/server.git
-
----
-
-## 🛠️ Technologies Used
-
-### Frontend
-
-* React.js
-* React Router DOM
-* Axios
-* Tailwind CSS
-* React Hot Toast
-
-### Backend
-
-* Node.js
-* Express.js
-* MongoDB Atlas
-* Mongoose
-* JWT Authentication
-* Multer
-
-
----
-
-## ✨ Features
-
-* User Registration
-* User Login
-* JWT Authentication
-* Create Task
-* Edit Task
-* Delete Task
-* Task Categories
-* Task Priorities
-* Dashboard Statistics
-* User Profile
-* Comments
-* Responsive Design
-
----
-
-## 👤 Demo Credentials
-
-Email:
-demo@gmail.com
-
-Password:
-123456
-
----
-
-## 📦 Installation
-
-### Frontend
+Install dependencies in both project directories:
 
 ```bash
+cd server
 npm install
 npm run dev
 ```
 
-### Backend
+In a second terminal:
 
 ```bash
+cd task-management-frontend
 npm install
-npm start
+npm run dev
 ```
 
----
+## Environment
 
-## Environment Variables
+Create `server/.env` with deployment-specific values:
 
-Backend (.env)
-
-```
-MONGO_URI=mongodb+srv://rajpraveen2412_db_user:zt6RTaG98m0AcihX@cluster0.lguo5if.mongodb.net/taskmanager?retryWrites=true&w=majority&appName=Cluster0
-JWT_SECRET=MyTaskManagementSecret2026
-CLIENT_URL=https://guvi-task-managment-frontend.netlify.app
-```
-
-Frontend (.env)
-
-```
-VITE_API_URL=https://server-i6ms.onrender.com/api
+```dotenv
+PORT=5000
+MONGO_URI=your_mongodb_connection_string
+JWT_SECRET=generate_a_long_random_secret
+CLIENT_URL=http://localhost:5173
+EMAIL_USER=your_notification_email
+EMAIL_PASS=your_email_provider_app_password
+DEADLINE_REMINDER_HOURS=24
 ```
 
----
+Create `task-management-frontend/.env`:
 
-## Author
+```dotenv
+VITE_API_URL=http://localhost:5000/api
+```
 
-Praveen Kumar
+The server reminder worker checks every 15 minutes and sends an assigned user one deadline reminder within the configured lead time. Configure email credentials in the backend deployment environment; do not commit `.env` files or credentials.
 
+## Production build
 
+From `task-management-frontend`, run:
 
+```bash
+npm run lint
+npm run build
+```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Deploy the `dist` directory to a static host and deploy the `server` directory to a Node.js host. Configure MongoDB access, `JWT_SECRET`, email settings, `CLIENT_URL`, and `VITE_API_URL` in the respective hosting dashboards.

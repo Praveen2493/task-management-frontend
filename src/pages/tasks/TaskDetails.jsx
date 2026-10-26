@@ -7,6 +7,7 @@ import ActivityTimeline from "../../components/tasks/ActivityTimeline";
 import AssignedUsers from "../../components/tasks/AssignedUsers";
 import AttachmentSection from "../../components/tasks/AttachmentSection";
 import TaskDetailsCard from "../../components/tasks/TaskDetailsCard";
+import TaskSharing from "../../components/tasks/TaskSharing";
 import { getTaskById } from "../../api/taskApi";
 import MainLayout from "../../layouts/MainLayout";
 
@@ -15,6 +16,15 @@ const TaskDetails = () => {
   const [task, setTask] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [canManageSharing, setCanManageSharing] = useState(false);
+  const [canComment, setCanComment] = useState(false);
+
+  const refreshTask = async () => {
+    const response = await getTaskById(id);
+    setTask(response.task);
+    setCanManageSharing(response.canManageSharing);
+    setCanComment(response.permission === "edit");
+  };
 
   useEffect(() => {
     let active = true;
@@ -23,7 +33,11 @@ const TaskDetails = () => {
       setError("");
       try {
         const response = await getTaskById(id);
-        if (active) setTask(response.task);
+        if (active) {
+          setTask(response.task);
+          setCanManageSharing(response.canManageSharing);
+          setCanComment(response.permission === "edit");
+        }
       } catch (requestError) {
         console.error("Unable to load task details", requestError);
         if (active) {
@@ -70,9 +84,10 @@ const TaskDetails = () => {
         ) : task ? (
           <div className="space-y-5">
             <TaskDetailsCard task={task} />
-            <AssignedUsers />
+            <AssignedUsers task={task} canManage={canManageSharing} onUpdated={refreshTask} />
+            <TaskSharing task={task} canManage={canManageSharing} onUpdated={refreshTask} />
             <AttachmentSection />
-            <CommentSection taskId={task._id} />
+            <CommentSection taskId={task._id} canComment={canComment} />
             <ActivityTimeline />
           </div>
         ) : null}

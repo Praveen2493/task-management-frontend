@@ -3,6 +3,7 @@ import PriorityBadge from "./PriorityBadge";
 import StatusBadge from "./StatusBadge";
 
 const TaskDetailsCard = ({ task }) => {
+  const isOverdue = task.status !== "Completed" && task.deadline && new Date(task.deadline) < new Date();
   const dueDate = task.deadline
     ? new Date(task.deadline).toLocaleDateString(undefined, {
       year: "numeric",
@@ -32,9 +33,11 @@ const TaskDetailsCard = ({ task }) => {
 
         <div className="mt-6 flex flex-wrap items-center gap-3 border-t border-slate-100 pt-5">
           <StatusBadge status={task.status} />
-          <span className="inline-flex items-center gap-2 rounded-full bg-slate-50 px-3 py-1.5 text-sm font-medium text-slate-600">
+          <span className={`inline-flex items-center gap-2 rounded-full px-3 py-1.5 text-sm font-medium ${
+            isOverdue ? "bg-rose-50 text-rose-700" : "bg-slate-50 text-slate-600"
+          }`}>
             <FiCalendar size={15} className="text-slate-400" />
-            Due {dueDate}
+            {isOverdue ? "Overdue · " : "Due "}{dueDate}
           </span>
           {task.createdAt && (
             <span className="inline-flex items-center gap-2 text-xs text-slate-400">

@@ -1,10 +1,5 @@
-import {
-  createContext,
-  useState,
-} from "react";
-
-export const ThemeContext =
-  createContext();
+import { useState } from "react";
+import { ThemeContext } from "./contexts";
 
 const ThemeProvider = ({
   children,

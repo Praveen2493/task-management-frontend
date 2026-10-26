@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { FiBarChart2, FiCheckSquare, FiChevronsLeft, FiChevronsRight, FiLogOut, FiUser, FiX } from "react-icons/fi";
 import { getProfile } from "../../api/userApi";
+import UserAvatar from "./UserAvatar";
+import useAuth from "../../hooks/useAuth";
 
 const navigation = [
   { label: "Dashboard", to: "/dashboard", icon: FiBarChart2 },
@@ -11,6 +13,7 @@ const navigation = [
 
 const Sidebar = ({ collapsed, onToggle, mobileOpen, onClose }) => {
   const navigate = useNavigate();
+  const { logout } = useAuth();
   const [user, setUser] = useState(null);
 
   useEffect(() => {
@@ -27,8 +30,7 @@ const Sidebar = ({ collapsed, onToggle, mobileOpen, onClose }) => {
   }, []);
 
   const handleLogout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("user");
+    logout();
     navigate("/login");
   };
 
@@ -73,11 +75,7 @@ const Sidebar = ({ collapsed, onToggle, mobileOpen, onClose }) => {
 
         {user && (
           <div className={`mx-3 mt-5 flex items-center gap-3 rounded-xl bg-white/5 p-3 ${collapsed ? "xl:justify-center xl:px-1" : ""}`}>
-            <img
-              src={user.profileImage ? `${import.meta.env.VITE_API_URL}${user.profileImage}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "User")}&background=7c3aed&color=fff`}
-              alt=""
-              className="h-10 w-10 shrink-0 rounded-full object-cover ring-2 ring-white/10"
-            />
+            <UserAvatar user={user} className="h-10 w-10 ring-2 ring-white/10" />
             <div className={`${collapsed ? "xl:hidden" : ""} min-w-0`}>
               <p className="truncate text-sm font-semibold">{user.name}</p>
               <p className="truncate text-xs text-slate-400">{user.email}</p>

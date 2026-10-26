@@ -1,4 +1,3 @@
-import React from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
@@ -31,7 +30,7 @@ const AppRoutes = () => {
     </ProtectedRoute>
   }
 />
-    {/* <Route path='/notificaions' element={<ProtectedRoute><Notifications/></ProtectedRoute>}/> */}
+    <Route path="/notifications" element={<ProtectedRoute><Notifications /></ProtectedRoute>} />
     <Route path="/profile"element={<ProtectedRoute><Profile /></ProtectedRoute>}/>
     <Route path="/settings" element={ <ProtectedRoute><Settings /></ProtectedRoute>}/>
     <Route path='/tasks/edit/:id' element={<ProtectedRoute> <EditTask/> </ProtectedRoute> }/>

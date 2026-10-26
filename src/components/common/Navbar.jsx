@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { FiArrowLeft, FiMenu } from "react-icons/fi";
 import { getProfile } from "../../api/userApi";
+import UserAvatar from "./UserAvatar";
+import NotificationBell from "./NotificationBell";
 
 const Navbar = ({ onMenuClick }) => {
   const [user, setUser] = useState(null);
@@ -40,19 +42,18 @@ const Navbar = ({ onMenuClick }) => {
           <span className="hidden sm:inline">Back</span>
         </button>
       </div>
-      {user && (
-        <div className="flex min-w-0 items-center gap-3">
-          <img
-            src={user.profileImage ? `${import.meta.env.VITE_API_URL}${user.profileImage}` : `https://ui-avatars.com/api/?name=${encodeURIComponent(user.name || "User")}&background=7c3aed&color=fff`}
-            alt=""
-            className="h-9 w-9 rounded-full object-cover ring-2 ring-violet-100"
-          />
-          <div className="hidden min-w-0 sm:block">
-            <p className="truncate text-sm font-semibold text-slate-800">{user.name}</p>
-            <p className="truncate text-xs text-slate-500">{user.email}</p>
+      <div className="flex items-center gap-3">
+        <NotificationBell />
+        {user && (
+          <div className="flex min-w-0 items-center gap-3">
+            <UserAvatar user={user} className="h-9 w-9 ring-2 ring-violet-100" />
+            <div className="hidden min-w-0 sm:block">
+              <p className="truncate text-sm font-semibold text-slate-800">{user.name}</p>
+              <p className="truncate text-xs text-slate-500">{user.email}</p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </header>
   );
 };
