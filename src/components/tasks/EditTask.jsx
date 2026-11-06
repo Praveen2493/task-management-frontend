@@ -54,9 +54,9 @@ const EditTask = () => {
 
     } catch (error) {
 
-      console.log(error);
+      console.error("Unable to update task", error);
 
-      toast.error("Failed to update task");
+      toast.error(error.response?.data?.message || "Failed to update task");
 
     }
 

@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom'
+import { Navigate, Route, Routes } from 'react-router-dom'
 import Login from '../pages/auth/Login'
 import Register from '../pages/auth/Register'
 import ProtectedRoute from './ProtectedRoute'
@@ -10,13 +10,19 @@ import Notifications from '../pages/notifications/Notifications'
 import Profile from '../pages/profile/Profile'
 import Settings from '../pages/settings/Settings'
 import EditTask from '../components/tasks/EditTask'
+import useAuth from '../hooks/useAuth'
 
 const AppRoutes = () => {
+  const { user } = useAuth()
+  const guestPage = (page) => user
+    ? <Navigate to="/dashboard" replace />
+    : page
+
   return (
     <Routes>
-        <Route path='/' element = {<Login/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/register' element={<Register/>}/>
+        <Route path='/' element={guestPage(<Login />)}/>
+        <Route path='/login' element={guestPage(<Login />)}/>
+        <Route path='/register' element={guestPage(<Register />)}/>
 
 
     <Route path='/dashboard' element={<ProtectedRoute> <Dashboard/> </ProtectedRoute>}/>

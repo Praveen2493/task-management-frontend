@@ -42,7 +42,7 @@ const TaskForm = ({ onSubmit, initialData }) => {
       </div>
       <div className="sm:col-span-2">
         <label htmlFor="task-description" className="mb-1.5 block text-sm font-semibold text-slate-700">Description</label>
-        <textarea id="task-description" name="description" placeholder="Add details about this task" rows={4} value={formData.description} onChange={handleChange} className={`${inputClassName} resize-y`} />
+        <textarea id="task-description" name="description" placeholder="Add details about this task" rows={4} value={formData.description} onChange={handleChange} required className={`${inputClassName} resize-y`} />
       </div>
       <div>
         <label htmlFor="task-priority" className="mb-1.5 block text-sm font-semibold text-slate-700">Priority</label>
