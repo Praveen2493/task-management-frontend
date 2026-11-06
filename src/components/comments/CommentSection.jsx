@@ -90,8 +90,13 @@ const CommentSection = ({ taskId, canComment = true }) => {
       await addComment(taskId, comment.trim(), replyTo?._id || null);
       setComment("");
       setReplyTo(null);
-      const response = await getComments(taskId);
-      setComments(response.comments || []);
+      toast.success("Comment added");
+      getComments(taskId)
+        .then((response) => setComments(response.comments || []))
+        .catch((error) => {
+          console.error("Unable to refresh task comments", error);
+          toast.error(error.response?.data?.message || "Comment added, but unable to refresh comments");
+        });
     } catch (error) {
       console.error("Unable to add task comment", error);
       toast.error(error.response?.data?.message || "Unable to add comment");

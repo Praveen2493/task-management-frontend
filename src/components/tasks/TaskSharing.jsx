@@ -33,8 +33,11 @@ const TaskSharing = ({ task, canManage, onUpdated }) => {
       setSaving(true);
       await shareTask(task._id, userId, permission);
       setUserId("");
-      await onUpdated();
       toast.success("Task access updated");
+      onUpdated().catch((error) => {
+        console.error("Task access updated, but task details could not be refreshed", error);
+        toast.error("Access updated, but task details could not be refreshed");
+      });
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to share task");
     } finally {
@@ -45,8 +48,11 @@ const TaskSharing = ({ task, canManage, onUpdated }) => {
   const handleRemove = async (sharedUserId) => {
     try {
       await removeTaskShare(task._id, sharedUserId);
-      await onUpdated();
       toast.success("Task access removed");
+      onUpdated().catch((error) => {
+        console.error("Task access removed, but task details could not be refreshed", error);
+        toast.error("Access removed, but task details could not be refreshed");
+      });
     } catch (error) {
       toast.error(error.response?.data?.message || "Unable to remove task access");
     }

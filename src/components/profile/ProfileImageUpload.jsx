@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { FiImage, FiUploadCloud } from "react-icons/fi";
+import toast from "react-hot-toast";
 import { uploadProfileImage } from "../../api/userApi";
 
 const ProfileImageUpload = ({ onUpload }) => {
@@ -11,7 +12,9 @@ const ProfileImageUpload = ({ onUpload }) => {
     event.preventDefault();
     const formElement = event.currentTarget;
     if (!file) {
-      setErrorMsg("Choose an image before uploading.");
+      const message = "Choose an image before uploading.";
+      setErrorMsg(message);
+      toast.error(message);
       return;
     }
 
@@ -23,7 +26,9 @@ const ProfileImageUpload = ({ onUpload }) => {
       setFile(null);
       formElement.reset();
     } catch (error) {
-      setErrorMsg(error.response?.data?.message || "Image upload failed");
+      const message = error.response?.data?.message || "Image upload failed";
+      setErrorMsg(message);
+      toast.error(message);
     } finally {
       setLoading(false);
     }
